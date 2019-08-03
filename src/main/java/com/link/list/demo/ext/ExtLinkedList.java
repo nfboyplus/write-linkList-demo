@@ -17,7 +17,7 @@ public class ExtLinkedList<E> {
     // 最后一个元素(头节点,为添加开始)
     private Node last;
 
-    class Node {
+    private class Node {
         // 上一个节点
         Node prev;
         // 节点内容
@@ -44,6 +44,9 @@ public class ExtLinkedList<E> {
         size++;
     }
 
+    /**
+     * 下标添加元素
+     */
     public void add(int index, E e) {
         // 1.循环遍历到当前index位置Node
         // 2.新增当前节点
@@ -91,12 +94,21 @@ public class ExtLinkedList<E> {
             // 设置上一个节点的next为当前删除节点的next
             if (prevNode != null) {
                 prevNode.next = nextNode;
+                node.prev = null;
+            }else {
+                //删除的是第一个
+                first = prevNode;
             }
             // 判断是否是最后一个节点
             if (nextNode != null) {
                 nextNode.prev = prevNode;
+                node.next = null;
+            }else {
+                //删除的是最后一个
+                last = nextNode;
             }
         }
+        node.object = null;
         size--;
     }
 
